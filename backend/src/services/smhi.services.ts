@@ -5,6 +5,7 @@ interface Parameter {
   levelType: string;
   level: string;
   unit: string;
+  values: number[];
 }
 
 interface SMHITimestamp {
@@ -21,7 +22,7 @@ export interface SMHIResult {
   approvedTime: string;
   referenceTime: string;
   geometry: Geometry;
-  timeSeries: SMHITimestamp;
+  timeSeries: SMHITimestamp[];
 }
 
 const smhiBase = "https://opendata-download-metfcst.smhi.se/api";

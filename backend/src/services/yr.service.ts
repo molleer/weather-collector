@@ -13,6 +13,15 @@ interface Meta {
   };
 }
 
+export enum ParameterName {
+  air_pressure_at_sea_level = "air_pressure_at_sea_level",
+  air_temperature = "air_temperature",
+  cloud_area_fraction = "cloud_area_fraction",
+  relative_humidity = "relative_humidity",
+  wind_from_direction = "wind_from_direction",
+  wind_speed = "wind_speed"
+}
+
 interface Data {
   instant: {
     details: {
@@ -39,7 +48,7 @@ interface Properties {
   timeseries: YRTimestamp[];
 }
 
-interface YRResult {
+export interface YRResult {
   type: string;
   geometry: {
     type: string;
