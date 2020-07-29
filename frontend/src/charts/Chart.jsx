@@ -19,6 +19,7 @@ const Chart = () => {
   }, []);
   return (
     <LineChart
+      style={{ margin: "2rem" }}
       width={1300}
       height={500}
       data={data}
