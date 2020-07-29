@@ -1,8 +1,8 @@
 import React from "react";
-import SMHIChart from "./charts/SMHI.Chart";
+import Chart from "./charts/Chart";
 
 const App = () => {
-  return <SMHIChart />;
+  return <Chart />;
 };
 
 export default App;

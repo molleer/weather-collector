@@ -10,19 +10,11 @@ import {
 } from "recharts";
 import Axios from "axios";
 
-const parseSMHIData = (timeSeries, parameterName) =>
-  timeSeries.map((e) => {
-    return {
-      time: e.validTime,
-      parameter: e.parameters.find((param) => param.name === parameterName),
-    };
-  });
-
-const SMHIChart = () => {
+const Chart = () => {
   const [data, setData] = useState();
   useEffect(() => {
-    Axios.get("/api/smhi").then((res) => {
-      setData(parseSMHIData(res.data.timeSeries, "gust"));
+    Axios.get("/api/wind").then((res) => {
+      setData(res.data);
     });
   }, []);
   return (
@@ -38,19 +30,20 @@ const SMHIChart = () => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="time" />
+      <XAxis dataKey="timestamp" />
       <YAxis />
       <Tooltip />
       <Legend />
 
       <Line
         type="monotone"
-        dataKey="parameter.values.0"
-        name="Value"
+        dataKey="values.smhi"
+        name="SMHI"
         stroke="#82ca9d"
       />
+      <Line type="monotone" dataKey="values.yr" name="YR" stroke="#82ca9d" />
     </LineChart>
   );
 };
 
-export default SMHIChart;
+export default Chart;
