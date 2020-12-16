@@ -9,14 +9,37 @@ import {
   Legend,
 } from "recharts";
 import Axios from "axios";
+import { getForecast, getYRForecast } from "../api/wind";
+import { insert, parseSMHI, parseYR, to } from "../utils";
 
 const Chart = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [smhi, setSMHI] = useState([]);
+  const [yr, setYR] = useState([]);
   useEffect(() => {
-    Axios.get("/api/wind").then((res) => {
-      setData(res.data);
-    });
+    getForecast(57.825534, 11.665202)
+      .then((res) => setSMHI(parseSMHI(res.data, "gust")))
+      .catch((err) => console.log("Unable to fetch SMHI", err));
   }, []);
+
+  useEffect(() => {
+    getYRForecast(57.825534, 11.665202)
+      .then((res) => setYR(parseYR(res.data, "wind_speed")))
+      .catch((err) => console.log("Unable to fetch YR", err));
+  }, []);
+
+  useEffect(() => {
+    const wind = insert(insert([], smhi, "smhi"), yr, "yr");
+    setData(
+      Object.keys(wind).map((k) => {
+        return { timestamp: k, values: wind[k] };
+      })
+    );
+  }, [smhi, yr]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <LineChart
       style={{ margin: "2rem" }}
