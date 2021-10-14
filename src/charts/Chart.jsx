@@ -8,9 +8,8 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import Axios from "axios";
 import { getForecast, getYRForecast } from "../api/wind";
-import { insert, parseSMHI, parseYR, to } from "../utils";
+import { insert, parseSMHI, parseYR } from "../utils";
 
 const Chart = () => {
   const [data, setData] = useState([]);
